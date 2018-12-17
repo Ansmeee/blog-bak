@@ -29,4 +29,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    const PRIVACY = 0;
+    const MALE    = 1;
+    const FEMALE  = 2;
+    public static $sexTitle = [
+        self::PRIVACY => '保密',
+        self::MALE    => '男',
+        self::FEMALE  => '女'
+    ];
 }

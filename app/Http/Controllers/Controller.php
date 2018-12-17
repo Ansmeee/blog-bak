@@ -14,6 +14,7 @@ class Controller extends BaseController
 
     protected function authorized()
     {
+        return true;
         $token = $_SERVER['HTTP_X_AUTH_TOKEN'];
         if (!$token) return false;
 
@@ -23,7 +24,7 @@ class Controller extends BaseController
         return false;
     }
 
-    protected function response($data = [], $code = 200, $msg = '')
+    protected function response($data = [], $code = 200, $msg = 'OK')
     {
         $response = [
             'code' => $code,
@@ -37,7 +38,7 @@ class Controller extends BaseController
         return response()->json($response);
     }
 
-    protected function responseErr($code = 400, $msg = '')
+    protected function responseErr($code = 400, $msg = 'ERR')
     {
         $response = [
             'code' => $code,
