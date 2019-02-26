@@ -15,5 +15,7 @@ $router->get('/', function () use ($router) {
     return "Hellor Lumen";
 });
 
-$router->get('rest/user/{id}', "UserController@info");
-$router->post('rest/user/{id}', "UserController@modify");
+$router->get('blogger', "BloggerController@index");
+$router->get('blogger/info', "BloggerController@info");
+
+$router->get('blog/list', "BlogController@list");
