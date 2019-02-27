@@ -19,3 +19,4 @@ $router->get('blogger', "BloggerController@index");
 $router->get('blogger/info', "BloggerController@info");
 
 $router->get('blog/list', "BlogController@list");
+$router->get('blog', "BlogController@index");
