@@ -63,4 +63,46 @@ class BlogController extends Controller
         $data['content'] = $content;
         return $this->response($data);
     }
+
+    public function like(Request $request, $id)
+    {
+        // 接口权限验证
+        if (!$this->authorized()) {
+            return $this->responseErr(self::CODE_UNAUTHORIZED, '无权访问!');
+        }
+
+        $blog = \App\Story::find($id);
+        if (!$blog) {
+            return $this->responseErr(self::CODE_NOT_FOUND, '没有找到!');
+        }
+
+        $likeCount = $blog->like;
+        $blog->like = $likeCount + 1;
+        if (!$blog->save()) {
+            return $this->responseErr(self::CODE_SERVER_ERR, '操作失败!');
+        }
+
+        return $this->response();
+    }
+
+    public function dislike(Request $request, $id)
+    {
+        // 接口权限验证
+        if (!$this->authorized()) {
+            return $this->responseErr(self::CODE_UNAUTHORIZED, '无权访问!');
+        }
+
+        $blog = \App\Story::find($id);
+        if (!$blog) {
+            return $this->responseErr(self::CODE_NOT_FOUND, '没有找到!');
+        }
+
+        $dislikeCount = $blog->dislike;
+        $blog->dislike = $dislikeCount + 1;
+        if (!$blog->save()) {
+            return $this->responseErr(self::CODE_SERVER_ERR, '操作失败!');
+        }
+
+        return $this->response();
+    }
 }

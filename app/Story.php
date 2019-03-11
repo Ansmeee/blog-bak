@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Story extends Model
 {
     protected $table = 'story';
-    
+    public $timestamps = false;
+
     const Blog = 1;
     const TRIP = 2;
 }

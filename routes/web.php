@@ -20,5 +20,7 @@ $router->get('blogger/info', "BloggerController@info");
 
 $router->get('blog/list', "BlogController@list");
 $router->get('blog', "BlogController@index");
+$router->put('blog/like/{id}', "BlogController@like");
+$router->put('blog/dislike/{id}', "BlogController@dislike");
 
 $router->get('class/list', "ClassController@list");
