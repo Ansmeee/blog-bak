@@ -17,13 +17,18 @@ class ClassController extends Controller
         $form       =   $request->all();
         $perpage    =   $form['perpage'] ? (int)$form['perpage'] : 10;
         $start      =   ((int)$form['start'] - 1) > 0 ? ((int)$form['start'] - 1) * $perpage : 0;
+        $keywords   =   $form['keywords'];
 
-        $blogsCount = \App\Story::where('type', \App\Story::Blog)->count();
+        $blogs = \App\Story::where('type', \App\Story::Blog);
+        if ($keywords) {
+            $blogs = $blogs->where('keywords', 'like', "%$keywords%");
+        }
 
+        $blogsCount = $blogs->count();
         $content['total'] = $blogsCount;
         $content['list']  = [];
         if ($blogsCount) {
-            $blogs = \App\Story::where('type', \App\Story::Blog)->paginate($perpage, null, null, $start);
+            $blogs = $blogs->paginate($perpage, null, null, $start);
             foreach ($blogs as $blog) {
                 $content['list'][] = [
                     'id'        =>  $blog->id,

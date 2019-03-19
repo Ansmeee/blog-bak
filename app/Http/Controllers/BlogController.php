@@ -64,13 +64,15 @@ class BlogController extends Controller
         return $this->response($data);
     }
 
-    public function like(Request $request, $id)
+    public function like(Request $request)
     {
         // 接口权限验证
         if (!$this->authorized()) {
             return $this->responseErr(self::CODE_UNAUTHORIZED, '无权访问!');
         }
 
+        $form   =   $request->all();
+        $id     =   $form['id'];
         $blog = \App\Story::find($id);
         if (!$blog) {
             return $this->responseErr(self::CODE_NOT_FOUND, '没有找到!');
@@ -85,13 +87,15 @@ class BlogController extends Controller
         return $this->response();
     }
 
-    public function dislike(Request $request, $id)
+    public function dislike(Request $request)
     {
         // 接口权限验证
         if (!$this->authorized()) {
             return $this->responseErr(self::CODE_UNAUTHORIZED, '无权访问!');
         }
 
+        $form   =   $request->all();
+        $id     =   $form['id'];
         $blog = \App\Story::find($id);
         if (!$blog) {
             return $this->responseErr(self::CODE_NOT_FOUND, '没有找到!');
