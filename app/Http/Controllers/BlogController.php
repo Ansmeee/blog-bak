@@ -39,9 +39,8 @@ class BlogController extends Controller
             return $this->responseErr(self::CODE_UNAUTHORIZED, '无权访问!');
         }
 
-        $form       =   $request->all();
-        $perpage    =   $form['perpage'] ? (int)$form['perpage'] : 10;
-        $start      =   ((int)$form['start'] - 1) > 0 ? ((int)$form['start'] - 1) * $perpage : 0;
+        $form = $request->all();
+        list($start, $perpage) = $this->pagination($form['start'], $form['perpage']);
 
         $blogsCount = \App\Story::where('type', \App\Story::Blog)->count();
 

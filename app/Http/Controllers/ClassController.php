@@ -15,10 +15,9 @@ class ClassController extends Controller
         }
 
         $form       =   $request->all();
-        $perpage    =   $form['perpage'] ? (int)$form['perpage'] : 10;
-        $start      =   ((int)$form['start'] - 1) > 0 ? ((int)$form['start'] - 1) * $perpage : 0;
         $keywords   =   $form['keywords'];
-
+        list($start, $perpage) = $this->pagination($form['start'], $form['perpage']);
+        
         $blogs = \App\Story::where('type', \App\Story::Blog);
         if ($keywords) {
             $blogs = $blogs->where('keywords', 'like', "%$keywords%");

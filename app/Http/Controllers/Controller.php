@@ -47,4 +47,12 @@ class Controller extends BaseController
 
         return response()->json($response);
     }
+
+    protected function pagination($start = 0, $perpage = 10)
+    {
+        $perpage    =   $perpage ? (int)$perpage : 10;
+        $start      =   ((int)$start - 1) > 0 ? ((int)$start - 1) * $perpage : 0;
+
+        return [$start, $perpage];
+    }
 }
